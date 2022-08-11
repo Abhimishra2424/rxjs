@@ -32,8 +32,18 @@ const observable = new Observable((subscriber) => {
         return value.data
     }),
     map((value) => {
-        console.log("1= Got data from first Operator", value)
-        return value
+        console.log("2= Got data from first Operator", value)
+        return value.filter(user => user.status === "active")
+    }),
+    map((value) => {
+        console.log("3= Got data from third Operator", value)
+        return value.reduce((sum, user) => sum + user.age, 0) / value.length
+    }),
+    map((value) => {
+        console.log("4= Got data from four Operator", value)
+        if (value > 30) {
+            return "You are too old" + "-" + value
+        }
     })
 )
 
